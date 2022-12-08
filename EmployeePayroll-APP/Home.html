@@ -12,13 +12,54 @@
         <header>
             <!--UC1 to create an Employee Payroll System Home Page UI -->
             <div class="header-content">
-                <img src="Images/logo.png">
+                <img src="assets/Images/logo.png">
                 <div>
                     <h3 class="Employee">Employee</h3>
                     <h3 class="Payroll">Payroll</h3>
                 </div>
             </div>
-        
+
+            <!--UC2 Employee Payroll form Header and Names-->
+            <div class="main-content">
+                <div class="employee-details">
+                    <div class="emp-count">10</div>
+                </div>
+                <a href="AddEmployeeForm.html" class="add-button">
+                    <img src="assets/Icons/add-24.svg" alt="">Add User
+                </a>
+            </div>
+
+            <div cla="table main">
+                <table id="table-display" class="table">
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Gender</th>
+                        <th>Department</th>
+                        <th>Salary</th>
+                        <th>Start date</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr class="details">
+                        <td><img class="profile" alt=""
+                        src="assets/profile-images/m1.png">
+                    </td>
+                    <td>Nitin Pawar</td>
+                    <td>Male</td>
+                    <td><div class="dept-label">Engineer</div></td>
+                    <td>300000</td>
+                    <td> 15 Jun 2022</td>
+                    <td>
+                        <img id="1" onclick="remove(this)" alt="Delete"
+                        src="assets/Icons/delete.svg">
+                        <img id="1" onclick="update(this)" alt="edit"
+                        src="assets/Icons/edit.svg">
+                    </td>
+                    </tr>
+                </table>
+            </div>
+
+
         </header>
     </body>
 </html>

@@ -1,111 +1,170 @@
-let empPayrollList;
-window.addEventListener('DOMContentLoaded',(event)=>{
-    setEmployeePayrollDataFromStorage();
-    empPayrollList=getEmployeePayrollDataFromStorage();
-    document.querySelector(".emp-count").textContent=empPayrollList.length;
-    createInnerHtml();
-    localStorage.removeItem('editEmp');
-});
+/* UC 1 */
  
-const setEmployeePayrollDataFromStorage=() =>{
-    return localStorage.setItem('EmployeePayrollList',JSON.stringify(getEmployeePayrollDataFromStorage()));
-  }
- 
-const getEmployeePayrollDataFromStorage=() =>{
-  return localStorage.getItem('EmployeePayrollList') ?
-   JSON.parse(localStorage.getItem('EmployeePayrollList')):[];
+html body{
+    margin: 0;
+    height: 100%;
 }
  
-const createInnerHtml = ()=>{
-    var innerHTML1="";
-    const headerHtml= "<tr>"+
-    "<th></th>"+
-    "<th>Name</th>"+
-    "<th>Gender</th>"+
-    "<th>Department</th>"+
-    "<th>Salary</th>"+
-    "<th>Start Date</th>"+
-    "<th>Action</th>"+
-"</tr>";
-innerHTML1 = headerHtml;
-    //let empPayrollList = createEmployeePayrollJSON();
-   for(var empPayrollData of empPayrollList){
-        innerHTML1=innerHTML1+"<tr>"+
-    "<td><img class='profile' alt='' src='../assets/profile-images/Ellipse -2.png'></td>"+
-    "<td>"+empPayrollData._name+"</td>"+  // "<td>${empPayrollData._name}</td>"
-    "<td>"+empPayrollData._gender+"</td>"+
-    "<td>"+getDeptHtml(empPayrollData._department)+"</td>"+
-     "<td>"+empPayrollData._salary+"</td>"+
-    "<td>"+stringifyDate(empPayrollData._startDate)+"</td>"+
-    "<td>"+
-        "<img id="+empPayrollData._id+" onclick='remove(this)' alt='delete' src='../assets/icons/delete-black-18dp.svg'>"+
-        "<img id="+empPayrollData._id+" onclick='update(this)' alt='edit' src='../assets/icons/create-black-18dp.svg'>"+
-    "</td>"+
-      "</tr>";
-    };
-    document.querySelector('#table-display').innerHTML=innerHTML1;
-   
-}
-const createEmployeePayrollJSON=()=>{
- let empPayrollListLocal=[
-     {
-         _name: 'Narayan Mahadevan',
-         _gender:'male',
-         _department:[
-             'Engineering',
-             'Finance'
-         ],
-         _salary:'500000',
-         _startDate:'29 Oct 2019',
-         _note:'',
-         _id: new Date().getTime(),
-         _profilePic:'../assets/profile-images/Ellipse -2.png'
-     },
-     {
-        _name: 'Amarpa Shashank Keerthi Kumar',
-        _gender:'female',
-        _department:[
-            'Sales'
-        ],
-        _salary:'400000',
-        _startDate:'29 Oct 2019',
-        _note:'',
-        _id: new Date().getTime()+1,
-        _profilePic:'../assets/profile-images/Ellipse -1.png'
-     
-     }
- ];
- 
- return empPayrollListLocal;
+.header{
+    padding: 15px 0;
+    background-color: #ffffff;
 }
  
-const getDeptHtml = (deptList) => {
-   let deptHtml = '';
-   for(const dept of deptList){
-       deptHtml+="<div class='dept-label'>"+dept+"</div>"
-   }
- 
-   return deptHtml;
+.header-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border:0px solid green;
 }
  
-const remove = (node) =>{
-    let empPayrollData = empPayrollList.find(empData=>empData._id==node.id);
-    if(!empPayrollData) return;
-    const index= empPayrollList
-                 .map(empData=>empData._id)
-                 .indexOf(empPayrollData._id);
-                 empPayrollList.splice(index,1);
-                 localStorage.setItem("EmployeePayrollList",JSON.stringify(empPayrollList));
-                 document.querySelector(".emp-count").textContent=empPayrollList.length;
- 
-                 createInnerHtml();
+.logo-content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border:0px solid green;
+    width: 80%;
 }
  
-const update=(node)=>{
-    let empPayrollData = empPayrollList.find(empData=>empData._id==node.id);
-    if(!empPayrollData) return;
-    localStorage.setItem("editEmp",JSON.stringify(empPayrollData));
-    window.location.replace(site_properties.add_emp_payroll_page);
+.logo-content-img{
+    border:solid 0px #42515f;
+}
+ 
+.emp-text{
+    font:normal normal bold 20px/25px Montserrat;
+    font-family: "Montserrat", sans-serif;
+    letter-spacing: 0px;
+    color: #82a70c;
+    text-transform: capitalize;
+}
+ 
+.emp-payroll{
+    color: #42515f;
+ 
+}
+ 
+*{
+    box-sizing: border-box;
+}
+ 
+.main-content{
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 80px);
+    background-color: #f7f7f7;
+    padding: 30px 0 10px;
+    box-sizing: border-box;
+}
+ 
+.header-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+    padding-bottom: 25px;
+}
+ 
+.emp-detail-text{
+    font: normal normal bold 24px/25px Roboto;
+    letter-spacing: 0px;
+    color: #42515f;
+    opacity: 1;
+}
+ 
+.emp-count{
+   background-color: #82a70c;
+   color: #ffffff;
+   border-radius: 42%;
+   font-size:16px;
+   width:26px;
+   text-align: center;
+   display: inline-block;
+}
+ 
+.add-button{
+    font: normal normal bold 24px/25px Roboto;
+    letter-spacing: 0px;
+    color: #ffffff;
+    opacity: 1;
+    background:#82a70c 0% 0% no-repeat padding-box ;
+    border:none;
+    border-radius:5px;
+    padding:5px 18px;
+    outline: none;
+    cursor:pointer;
+    text-decoration: none;
+}
+ 
+.table-main{
+    widows: 80px;
+    margin: 0 auto;
+    overflow: auto;
+}
+ 
+.table{
+    width: 80%;
+    border-collapse: separate;
+    border-spacing: 0 15px;
+    min-width: 800px;
+}
+ 
+td, th{
+    text-align:left;
+    padding:5px 8px;
+ 
+}
+ 
+th{
+    background:#42515f 0% 0% no-repeat padding-box;
+    border-radius: 3px 3px 0px 0px;
+    text-align: left;
+    font:normal normal medium 18px/24px Roboto;
+    letter-spacing: 0px;
+    color: #ffffff;
+    text-transform: uppercase;
+    opacity:1;
+    border:0px solid #dddddd;
+}
+ 
+tr:not(:first-child){
+    background: #ffffff;
+    border:1px solid #e3e3e3;
+    border-radius: 3px;
+ 
+}
+ 
+td{
+    font: normal normal 14px/21px Roboto;
+    letter-spacing: 0px;
+    color: #3d3d3d;
+    opacity:1;
+}
+ 
+td:first-child{
+    display: flex;
+    align-items: center;
+}
+ 
+td img:first-child{
+    margin-right:10px;
+}
+ 
+td img{
+    cursor:pointer;
+}
+ 
+.dept-label{
+    background-color:#e9fea5 ;
+    border-radius: 40%;
+    width:fit-content;
+    padding:1px 7px;
+    text-align:center;
+    font-size:14px;
+    display: inline-block;
+    font-weight: 300;
+    margin-bottom: 8px;
 }
 
 
